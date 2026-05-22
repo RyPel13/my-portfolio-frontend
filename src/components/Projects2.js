@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import API from '../api';
 
 function Projects() {
@@ -7,7 +6,6 @@ function Projects() {
   const [filtered, setFiltered] = useState([]);
   const [language, setLanguage] = useState('all');
   const [error, setError] = useState(null);
-  const navigate = useNavigate();
 
   const languages = ['all', 'Java', 'Python', 'JavaScript', 'SQL'];
 
@@ -29,15 +27,6 @@ function Projects() {
             p.language.toLowerCase() === val.toLowerCase()
           )
     );
-  };
-
-  const handleCardClick = (project) => {
-    // Fitness project opens the full fitness app
-    if (project.appRoute) {
-      navigate(project.appRoute);
-    } else {
-      window.open(project.githubLink, '_blank', 'noreferrer');
-    }
   };
 
   if (error) return <p style={{ color: '#f87171' }}>{error}</p>;
@@ -66,28 +55,22 @@ function Projects() {
 
       <div style={styles.grid}>
         {filtered.map(project => (
-          <div
+          <a
             key={project.id}
-            onClick={() => handleCardClick(project)}
-            style={{
-              ...styles.card,
-              // Fitness card gets a special highlight
-              border: project.appRoute
-                ? '1px solid #22d3ee'
-                : '1px solid #334155',
-            }}
+            href={project.githubLink}
+            target="_blank"
+            rel="noreferrer"
+            style={styles.cardLink}
           >
-            {/* "Live App" badge for fitness card */}
-            {project.appRoute && (
-              <div style={styles.liveBadge}>⚡ Live App</div>
-            )}
-            <h3 style={styles.cardTitle}>{project.title}</h3>
-            <p style={styles.description}>{project.description}</p>
-            <div style={styles.tags}>
-              <span style={styles.tag}>{project.language}</span>
-              <span style={styles.tag}>{project.category}</span>
+            <div style={styles.card}>
+              <h3 style={styles.cardTitle}>{project.title}</h3>
+              <p style={styles.description}>{project.description}</p>
+              <div style={styles.tags}>
+                <span style={styles.tag}>{project.language}</span>
+                <span style={styles.tag}>{project.category}</span>
+              </div>
             </div>
-          </div>
+          </a>
         ))}
       </div>
 
@@ -121,8 +104,13 @@ const styles = {
     gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
     gap: '1.5rem',
   },
+  cardLink: {
+    textDecoration: 'none',
+    display: 'block',
+  },
   card: {
     backgroundColor: '#1e293b',
+    border: '1px solid #334155',
     borderRadius: '12px',
     padding: '1.5rem',
     display: 'flex',
@@ -131,19 +119,6 @@ const styles = {
     boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
     cursor: 'pointer',
     transition: 'border-color 0.2s, transform 0.2s',
-    position: 'relative',
-  },
-  liveBadge: {
-    position: 'absolute',
-    top: '0.75rem',
-    right: '0.75rem',
-    backgroundColor: '#22d3ee',
-    color: '#0f172a',
-    fontSize: '0.7rem',
-    fontWeight: '700',
-    padding: '0.2rem 0.6rem',
-    borderRadius: '20px',
-    letterSpacing: '0.05em',
   },
   cardTitle: { margin: 0, fontSize: '1.2rem', color: '#f87171', fontWeight: 'bold' },
   description: { margin: 0, color: '#94a3b8', fontSize: '0.9rem', flexGrow: 1 },

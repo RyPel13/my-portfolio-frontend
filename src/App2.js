@@ -1,13 +1,11 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Person from './components/Person';
 import Projects from './components/Projects';
 import Interests from './components/Interests';
 import Goals from './components/Goals';
-import FitnessApp from './components/fitness/FitnessApp';
 
-function Portfolio() {
+function App() {
   return (
     <div style={{ backgroundColor: '#0f172a', minHeight: '100vh', color: '#e2e8f0' }}>
       <Navbar />
@@ -18,17 +16,6 @@ function Portfolio() {
         <section id="goals" style={{ textAlign: 'center' }}><Goals /></section>
       </main>
     </div>
-  );
-}
-
-function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Portfolio />} />
-        <Route path="/fitness" element={<FitnessApp />} />
-      </Routes>
-    </Router>
   );
 }
 
