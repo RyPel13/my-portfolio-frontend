@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import API from '../../api';
+import API from '../../fitnessApi';
 
 const CATEGORIES = ['ALL', 'PHYSICAL_THERAPY', 'AEROBIC', 'ANAEROBIC', 'ENDURANCE', 'FLEXIBILITY'];
 const DIFFICULTIES = ['ALL', 'BEGINNER', 'INTERMEDIATE', 'ADVANCED'];

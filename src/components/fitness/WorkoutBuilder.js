@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import API from '../../api';
+import API from '../../fitnessApi';
 
 function WorkoutBuilder() {
   const [exercises, setExercises] = useState([]);

@@ -32,12 +32,7 @@ function Projects() {
   };
 
   const handleCardClick = (project) => {
-    // Fitness project opens the full fitness app
-    if (project.appRoute) {
-      navigate(project.appRoute);
-    } else {
-      window.open(project.githubLink, '_blank', 'noreferrer');
-    }
+    window.open(project.githubLink, '_blank', 'noreferrer');
   };
 
   if (error) return <p style={{ color: '#f87171' }}>{error}</p>;
@@ -87,6 +82,14 @@ function Projects() {
               <span style={styles.tag}>{project.language}</span>
               <span style={styles.tag}>{project.category}</span>
             </div>
+            {project.appRoute && (
+              <button
+                onClick={(e) => { e.stopPropagation(); navigate(project.appRoute); }}
+                style={styles.launchBtn}
+              >
+                Launch App
+              </button>
+            )}
           </div>
         ))}
       </div>
@@ -155,6 +158,19 @@ const styles = {
     borderRadius: '20px',
     fontSize: '0.78rem',
     fontWeight: '500',
+  },
+  launchBtn: {
+    marginTop: '0.25rem',
+    backgroundColor: '#22d3ee',
+    color: '#0f172a',
+    border: 'none',
+    borderRadius: '8px',
+    padding: '0.5rem 1rem',
+    fontWeight: '700',
+    fontSize: '0.85rem',
+    cursor: 'pointer',
+    alignSelf: 'flex-start',
+    transition: 'opacity 0.2s',
   },
 };
 
